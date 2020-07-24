@@ -24,10 +24,13 @@ use Illuminate\Support\Facades\Route;
     });
 
 
+/*******************
 
-// Frontend view home
+ Frontend view
 
-// Route::get('/masterfront','frontendController@masterfront');
+ ********************/ 
+
+// Welcome Blade [Frontend view home]
 Route::get('/','frontendController@index');
 
 // search 
@@ -51,14 +54,24 @@ Route::get('/men','frontendController@men');
 // single-product-page
 Route::get('/product-single/{name?}/{id}','frontendController@product_single');
 
+// contact-page
+Route::get('/contact','frontendController@contact');
+
+
+
+
+
+
+
+/***************
+
+Admin Panel 
+
+****************/
 
 
 Route::get('/adminhome','adminController@adminhome')->name('/adminhome');
 // Route::get(md5('admin'),'adminController@index')->name('/admin');
-
-
-
-
 
 // login and registraction 
 Route::get('/login', 'userController@loginview');

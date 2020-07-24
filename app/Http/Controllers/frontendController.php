@@ -148,6 +148,18 @@ class frontendController extends Controller
 
     }
 
+// contact page
+
+    public function contact()
+    {
+        $catData = DB::SELECT('SELECT * From category');
+        return view('frontend.contact',
+            [
+                'catData'           =>  $catData 
+            ]
+        );
+    }
+
 
 }
 

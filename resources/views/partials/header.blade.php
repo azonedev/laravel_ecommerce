@@ -72,14 +72,28 @@
                                 </div>
                                 <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
                             </div>
-                            <a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+                            @if(Session::has('email'))
+                            
+                            @else
+                            <a href="{{url('/login')}}" class="text-uppercase">Login</a> / <a href="{{url('/register')}}" class="text-uppercase">Join</a>
+                            @endif
+
                             <ul class="custom-menu">
+                              
+                                @if(Session::has('email'))
+
                                 <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
                                 <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                                <li><a href="{{url('/checkout')}}"><i class="fa fa-check"></i> Checkout</a></li>
+                                <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Log Out</a></li>
+                                    
+                                @else
+
+                                <li><a href="{{url('/login')}}"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                <li><a href="{{url('/register')}}"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+
+                                @endif
+
                             </ul>
                         </li>
                         <!-- /Account -->
@@ -95,7 +109,7 @@
 
                                      </span>
                                 </div>
-                                <strong class="text-uppercase">My Cart:</strong>
+                                <strong class="text-uppercase">My Cart</strong>
                                 <br>
                                 <span> 
 
@@ -114,7 +128,7 @@
                                     ?>
                                     @endforeach
                                     @endif
-                                   <?php  echo $total; ?>
+                                   <?php  echo $total." ৳" ?>
                                 </span>
                             </a>
                             <div class="custom-menu">

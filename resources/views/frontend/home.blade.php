@@ -127,11 +127,11 @@ Welcome to - SHOPMAMA
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-o empty"></i>
                                     </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                    <h2 class="product-name"><a href="#">{{$deal_pro->title}}</a></h2>
                                     <div class="product-btns">
                                         <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                         <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="{{ url('add-to-cart/'.$deal_pro->id) }}"> Add to Cart</a> </button>
+                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="{{ url('add-to-cart/'.$deal_pro->id) }}" style="color: white"> Add to Cart</a> </button>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@ Welcome to - SHOPMAMA
                                     <div class="product-btns">
                                         <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                         <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> <a href="{{ url('add-to-cart/'.$top_pro->id) }}">Add to Cart</a> </button>
+                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> <a href="{{ url('add-to-cart/'.$top_pro->id) }}" style="color: white">Add to Cart</a> </button>
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +326,7 @@ Welcome to - SHOPMAMA
                             <div class="product-btns">
                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="{{ url('add-to-cart/'.$latest_pro->id) }}"> Add to Cart</a></button>
+                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="{{ url('add-to-cart/'.$latest_pro->id) }}" style="color: white"> Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -379,7 +379,7 @@ Welcome to - SHOPMAMA
                             <div class="product-btns">
                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> <a href="{{ url('add-to-cart/'.$new_pro->id) }}">Add to Cart</a> </button>
+                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> <a href="{{ url('add-to-cart/'.$new_pro->id) }}" style="color: white">Add to Cart</a> </button>
                             </div>
                         </div>
                     </div>

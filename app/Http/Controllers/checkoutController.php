@@ -32,59 +32,66 @@ class checkoutController extends Controller
 	}
 
 	public function savecheckout(Request $request){
-
 		$order_id = intval(random_int(100000,999999));
 
-		// get billing data
+/*************
 
-		$first_name = $request->get('first_name');
-		$last_name = $request->get('last_name');
-		$shipping_email = $request->get('shipping_email');
-		$address = $request->get('address');
-		$city = $request->get('city');
-		$country = $request->get('country');
-		$zip_code = $request->get('zip_code');
-		$phone = $request->get('phone');
+//Update billing info 
 
-		// blilling data insert into users table
+***************/
 
-		// DB::insert('insert into users(first_name,last_name,shipping_email,address,city,country,zip_code,phone,order_id) values(?,?,?,?,?,?,?,?,?)',[$first_name,$last_name,$shipping_email,$address,$city,$country,$zip_code,$phone,$order_id]);
+		if(Session::has('email')){
+			$user_email = Session::get('email');
 
-
-		// order placement 
-
-		 // $product_id = $request->input('product_id');
-		 // echo count($product_id);
-		 // var_dump($product_id);
-
-		// var_dump($product_id);
-		// for ($i = 0; $i < count($request->product_id); $i++) {
-		// $product_title = $request->get('product_title'); 
-		// $price = $request->get('price'); 
-		// $quantity = $request->get('quantity'); 
-		// $subtotal = $request->get('subtotal');
-		// $discount = $request->get('discount');
-		// $grantotal = $request->get('grantotal');
-		// $customer_id = 0;
-		// $status = 0;
-		// }
-
-		// insert orders data into ordperplace table
-		// DB::insert('insert into ordperplace(product_id,order_id,product_title,price,quantity,subtotal,discount,grantotal,customer_id,status) values(?,?,?,?,?,?,?,?,?,?)',[$product_id,$product_title,$price,$quantity,$subtotal,$discount,$grantotal,$customer_id,$status]);
+			// get billing data
+			$first_name = $request->get('first_name');
+			$last_name = $request->get('last_name');
+			$shipping_email = $request->get('shipping_email');
+			$address = $request->get('address');
+			$city = $request->get('city');
+			$country = $request->get('country');
+			$zip_code = $request->get('zip_code');
+			$phone = $request->get('phone');
 
 
-		/*************
+			// Update user information on user table
+			DB::update("
+				UPDATE users
+				SET 
+					first_name = ?,
+					last_name = ?,
+					shipping_email = ?,
+					address = ?,
+					city = ?,
+					country =?,
+					zip_code= ?,
+					phone = ?,
+					order_id = ?
+				WHERE 
+					email='$user_email';
+				",
 
-		//order placement
+				[
+					$first_name,
+					$last_name,
+					$shipping_email,
+					$address,
+					$city,$country,
+					$zip_code,
+					$phone,
+					$order_id
+				]
+			);
 
-		***************/
 
+/*************
 
+//order placement
 
+***************/
 
-
-		if(session('cart'))
-		{
+			if(session('cart'))
+			{
 				$carts = session('cart');
 				$total =0;
 				// $order_id = order_id;
@@ -99,31 +106,50 @@ class checkoutController extends Controller
 				$taka =$details['price'];
 				$discount_taka = $taka - (($taka/100)*$discount);
 
-
 				// total product price calculation
 				$total += $discount_taka * $details['quantity'] ;
-				
+
+				$product_id = $id;
 				$product_title = $details["name"];
 				$price = $discount_taka;
 				$quantity = $details["quantity"];
-				$product_id = $id;
 				$subtotal = $request->get('subtotal');
 				$discount = $request->get('discount');
 				$grantotal = $request->get('grantotal');
-				$status = 0;
-
-				// if(Session::get('discount')==00){
-				// 	$discount=00;
-				// }
-				// else
-				// {
-				// 	$discount=Session::get('discount');
-				// }
+				$user_id = Session::get('user_id');
 
 				// insert orders data into ordperplace table
-				DB::insert('insert into ordperplace(product_id,order_id,product_title,price,quantity,subtotal,discount,grantotal,status) values(?,?,?,?,?,?,?,?,?)',[$product_id,$product_title,$price,$quantity,$subtotal,$discount,$grantotal,$status]);
+				DB::insert('insert into ordperplace 
+					(
+						product_id,
+						order_id,
+						product_title,
+						price,
+						quantity,
+						subtotal,
+						discount,
+						grantotal,
+						customer_id
+					)
 
-             
+					values(?,?,?,?,?,?,?,?,?)',
+
+					[
+						$product_id,
+						$order_id,
+						$product_title,
+						$price,
+						$quantity,
+						$subtotal,
+						$discount,
+						$grantotal,
+						$user_id
+					]
+				);
+
+
+
+
 				//  $getproductforstock=DB::select('select quantity, sales_qty ,stock_qty  from product where id=?',[$product_id]);
 				//   $convertoarray = (array)$getproductforstock;
 				//   $stock_qty=0;
@@ -137,24 +163,59 @@ class checkoutController extends Controller
 				//  DB::insert('update product  set sales_qty=?, stock_qty=?  where id=?',[$quantity,$stock_qty,$product_id]);
 				 
 				}
-		}
+			}
 
 
+/*************
 
+//order tracking
 
-
-
-		/*************
-
-		//order tracking
-
-		***************/
-
+***************/
 
 		$order_state = 'queue'; 
-		DB::insert('insert into order_track(order_id,order_state) values(?,?)',[$order_id,$order_state]);
+		DB::insert('insert into order_track
+			(
+				order_id,
+				order_state
+			) 
 
-		
+			values(?,?)',
+			[
+				$order_id,
+				$order_state
+			]);
+
+/*************
+
+//orders table
+
+***************/
+
+
+				DB::insert('
+					insert into orders
+					(
+						user_id,
+						debit,
+						credit,
+						balance
+					)
+
+					values(?,?,?,?)',
+					[
+						$user_id,$grantotal,500,500
+					]
+				);
+
+/*************
+
+//Ledger table
+
+***************/
+
+				$description ="$product_title $product_id $order_id $price  $quantity $subtotal $discount $grantotal $user_id";
+				DB::insert('insert into ledger(description) values(?)',[$description]);
+
 		Session::flash('checkout','Congrats! your your order checkout sucessfully.');
 		$request->session()->forget('cart');
 
@@ -162,6 +223,9 @@ class checkoutController extends Controller
 		return redirect('/');
 
 
+		}else{
+			return redirect('/login');
+		}
 
 	}
 

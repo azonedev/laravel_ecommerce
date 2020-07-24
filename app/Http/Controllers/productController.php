@@ -167,7 +167,7 @@ class productController extends Controller
      
             return redirect()->back()->with('success', 'Product added to cart successfully!');
         }
-
+ 
 
 
 // show cart product

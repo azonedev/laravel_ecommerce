@@ -52,7 +52,7 @@
                                 <div class="product-btns">
                                     <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                     <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="{{ url('add-to-cart/'.$cat_pro->id) }}"> Add to Cart</a></button>
+                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i><a href="{{ url('add-to-cart/'.$cat_pro->id) }}" style="color: white"> Add to Cart</a></button>
                                 </div>
                             </div>
                         </div>
