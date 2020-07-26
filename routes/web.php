@@ -145,3 +145,9 @@ route::post('savecheckout','checkoutController@savecheckout'); //save checkout d
 // Order
 route::get('order','orderController@order');
 route::get('allorder','orderController@allorder');
+
+
+// POS
+
+route::get('pos-product','posController@product');
+Route::any('pos-search','posController@search');

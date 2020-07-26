@@ -19,7 +19,8 @@
     <link href="{{asset('lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/zabuto_calendar.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('lib/gritter/css/jquery.gritter.css')}}" />
-
+    
+    
     <!-- advanced table -->
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="lib/advanced-datatable/css/demo_page.css" rel="stylesheet" />
@@ -34,6 +35,8 @@
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet">
     <script src="{{asset('lib/chart-master/Chart.js')}}"></script>
+    
+    @yield('stylesheet')
 
 
 </head>
@@ -47,7 +50,7 @@
                 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASH<span>IO</span></b></a>
+            <a href="{{url('/adminhome')}}" class="logo"><b>SHOP<span>MAMA</span></b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -276,7 +279,15 @@
                         </ul>
                     </li>
 
-
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-desktop"></i>
+                            <span>POS</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="{{url('pos-product')}}">Products</a></li>
+                        </ul>
+                    </li>
                     <li class="sub-menu">
                         <a href="javascript:;">
                             <i class="fa fa-desktop"></i>
