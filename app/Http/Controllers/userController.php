@@ -10,7 +10,7 @@ use Mail;
 class userController extends Controller
 {
 
-    //   Registraction Form
+//   Registraction Form
     
     function registerview(){
         if(Session::has('email')){
@@ -20,7 +20,7 @@ class userController extends Controller
         }
     }
     
-    // Registraction data save
+// Registraction data save
     function saveregister(Request $request){
         $reg_data = array();
         $reg_data['username'] = $request->input('username');
@@ -36,25 +36,7 @@ class userController extends Controller
 
 
 
-        $passowrd = $reg_data['password'];
-        $to = $reg_data['email'];
-        $name = $reg_data['username'];
-        $subject = "Laravel one project Login password";
-        $message = "Hi $name, \nYour Login Password  $passowrd \nYour Login Email:$to \n \nThanks By Laravel One Project.
 
-        ";
-        $header = "From:mail@azonedev.com \r\n";
-
-        // if(mail($to,$subject,$message,$header)){
-        //     echo "message send sucessfully";
-        // }else{
-        //     echo "message send un-sucess";
-        //     echo "\n please try again";
-        // }
-
-
-
-        if(mail($to,$subject,$message,$header)){
             $image_name = hexdec(uniqid());
             $ext = strtolower($image->getClientOriginalExtension());
             $image_full_name = $image_name.".".$ext;
@@ -63,17 +45,29 @@ class userController extends Controller
             $reg_data['photo_url'] = "public/image/".$image_full_name;
 
             DB::table('users')->insert($reg_data);
-            Session::flash('msg', 'Register success,Check your mail and login ..');
-            return redirect('login');
+
+ // start reg & send password by email 
+        $password = $reg_data['password'];
+        $to = $reg_data['email'];
+        $name = $reg_data['username'];
+        $inputs = [
+            'username' => $name,
+            'pwd' => $password,
+            'email' => $to
+        ];
         
-        }
-        // else{
-        //     // DB::insert('insert into users(username,email,password) values(? ,?,?)', [$user_name, $user_email, $password]);
-        //     DB::table('users')->insert($reg_data);
-        //     Session::flash('msg', 'Register success,Please Login ');
-        //     return redirect('login');
-        // }
-        exit();
+        Mail::send('emails.mail',$inputs,function($mail) use ($inputs){
+          $mail->subject('SHOPMAMA - user login password');
+              $mail ->to($inputs['email'],'Abdullah');
+              $mail ->from('azonedev@azonedev.com','SHOPMAMA MAIL SERVER');
+        });
+        
+// Redirect and flash message
+        Session::flash('msg', 'Register success,Check your mail and login ..');
+        return redirect('login');
+        
+        
+        
     }
     
     public function loginview()

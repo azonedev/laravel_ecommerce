@@ -69,7 +69,6 @@ Admin Panel
 
 ****************/
 
-
 Route::get('/adminhome','adminController@adminhome')->name('/adminhome');
 // Route::get(md5('admin'),'adminController@index')->name('/admin');
 
@@ -151,3 +150,7 @@ route::get('allorder','orderController@allorder');
 
 route::get('pos-product','posController@product');
 Route::any('pos-search','posController@search');
+
+
+
+
